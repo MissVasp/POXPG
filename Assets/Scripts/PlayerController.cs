@@ -22,14 +22,14 @@ public class PlayerController : MonoBehaviour
         stats = GetComponent<PlayerStats>();
     }
 
-    
+
     void Update()
     {
         if (stats.isDead) return;
 
         float moveInput = Input.GetAxis("Horizontal");
 
-        if(moveInput < 0)
+        if (moveInput < 0)
         {
             spriteRenderer.flipX = true;
         }
@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isWalking", false);
         }
 
+
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             rb.velocity = new Vector2(moveInput * runSpeed, rb.velocity.y);
@@ -56,12 +58,31 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && groundChecker.isGrounded)
+        if (rb.velocity.y == 0)
         {
-            //rb.AddForce(new Vector2(0,jumpForce));
-            rb.AddForce( Vector2.up * jumpForce );
+            anim.SetBool("isJump", false);
+            anim.SetBool("isFall", false);
         }
-    }
 
-    
+            if (Input.GetKeyDown(KeyCode.Space) && groundChecker.isGrounded)
+            {
+                //rb.AddForce(new Vector2(0,jumpForce));
+                rb.AddForce(Vector2.up * jumpForce);
+            }
+
+            if (rb.velocity.y > 0)
+            {
+                anim.SetBool("isJump", true);
+            }
+
+            if (rb.velocity.y > 0)
+            {
+                anim.SetBool("isJump", false);
+                anim.SetBool("isFall", true);
+            }
+        
+
+
+    }
 }
+

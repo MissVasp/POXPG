@@ -10,7 +10,10 @@ public class CollectibleCounterUI : MonoBehaviour
     private int current = 0;
     private int total = 0;
 
-   
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     public void SetTotal(int totalCollectibles)
     {
