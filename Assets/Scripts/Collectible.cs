@@ -15,6 +15,8 @@ public class Collectible : MonoBehaviour
         //TODO Check if inventory component exists
         Inventory inventory = collision.gameObject.GetComponent<Inventory>();
 
+        CollectibleCounterUI.Instance?.Increment();
         Destroy(gameObject);
+
     }
 }
